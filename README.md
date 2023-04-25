@@ -20,5 +20,9 @@
 
 # telegraf docker-compose 설정
 
+```
 cmd = '--config' '/etc/telegraf/telegraf.conf' '--config-directory' '/etc/telegraf/telegraf.d'
 run = '/endpoint.sh'
+```
+
+
