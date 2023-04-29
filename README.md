@@ -21,8 +21,30 @@
 # telegraf docker-compose 설정
 
 ```
-cmd = '--config' '/etc/telegraf/telegraf.conf' '--config-directory' '/etc/telegraf/telegraf.d'
-run = '/endpoint.sh'
+version: '3.6'
+services:
+  telegraf:
+    image: nuntz/telegraf-snmp
+    container_name: telegraf
+    hostname: telegraf
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - ./etc_telegraf:/etc/telegraf
+      - ./etc_telegraf/.cache:/root/.cache
+      - ./var_lib_telegraf:/var/lib/telegraf
+      - ./var_log_telegraf:/var/log/telegraf
+      - /etc/hosts:/etc/hosts
+    command: "--config /etc/telegraf/telegraf.conf --config-directory /etc/telegraf/telegraf.d"
+    ports:
+      - '8125:8125'
+
+# Use same docker network with Portainer
+networks:
+  default:
+    external:
+      name: portainer-network
 ```
 
 
