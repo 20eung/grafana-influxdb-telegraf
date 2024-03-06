@@ -47,4 +47,11 @@ networks:
       name: portainer-network
 ```
 
+# InfluxDB raw data로 쿼리하기
+
+## 쿼리 최적화 방법
+```sql
+SELECT non_negative_derivative("ifHCInOctets", 1s) *8 FROM "snmp" WHERE ("hostname" = 'SKNet_PDC3F_MMR_7020SR_leaf_1' AND "ifName" = 'Ethernet26') AND $timeFilter GROUP BY "hostname", "ifName"
+```
+
 
