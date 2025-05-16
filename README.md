@@ -54,4 +54,16 @@ networks:
 SELECT non_negative_derivative("ifHCInOctets", 1s) *8 FROM "snmp" WHERE ("hostname" = 'SKNet_PDC3F_MMR_7020SR_leaf_1' AND "ifName" = 'Ethernet26') AND $timeFilter GROUP BY "hostname", "ifName"
 ```
 
+# Grafana Panel Query 샘플
+```sql
+SELECT non_negative_derivative("ifHCOutOctets", 1s) *8 FROM "snmp" 
+WHERE ("hostname" = '7750SR-a8' AND "ifDescr"::tag != '')  AND $timeFilter 
+GROUP BY "ifDescr"::tag
+```
+## Transformations
 
+### 1. Rename fields by regex
+
+Match: `/, 10.*Gig Ethernet(?: SFP)?, "(.*)"/`
+
+Replace: `: $1`
